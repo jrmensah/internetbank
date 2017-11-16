@@ -1,9 +1,11 @@
 package me.jrmensah.internetbank.entities;
 
 
+
 import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 @Table(name="USER_DATA")
@@ -22,6 +24,11 @@ public class UserData {
     @Column(name="first_name")
     private String firstName;
 
+    public UserData() {
+        this.roles= new HashSet<UserRole>();
+
+    }
+
     @Column(name="last_name")
     private String lastName;
 
@@ -33,7 +40,7 @@ public class UserData {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
-    private Collection<Role> roles;
+    private Collection<UserRole> roles;
 
     public long getId() {
         return id;
@@ -91,12 +98,15 @@ public class UserData {
         this.username = username;
     }
 
-    public Collection<Role> getRoles() {
+    public Collection<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Collection<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public void addRoles(UserRole user) { roles.add(user);
     }
 }
 

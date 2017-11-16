@@ -52,6 +52,10 @@ public class MainController {
         public String login(){
             return "login";
         }
+    @RequestMapping("/secure")
+    public String secure(){
+        return "secure";
+    }
     @RequestMapping("/admin")
         public String admin(){
             return "admin";

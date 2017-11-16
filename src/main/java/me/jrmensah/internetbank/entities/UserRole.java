@@ -2,16 +2,11 @@ package me.jrmensah.internetbank.entities;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Set;
+
 
 @Entity
 public class UserRole {
-    public UserRole() {
-    }
-
-    public UserRole(String role) {
-        this.role = role;
-    }
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +15,12 @@ public class UserRole {
     @Column(unique=true)
     private String role;
 
-    @ManyToMany(mappedBy = "roles", fetch=FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles",fetch=FetchType.LAZY)
     private Collection<UserData> users;
 
-
+    public UserRole(String user) {
+    }
+    public UserRole(Collection<UserRole>)
 
     public long getId() {
         return id;
@@ -41,8 +38,12 @@ public class UserRole {
         this.role = role;
     }
 
+    public Collection<UserData> getUsers() { return users;}
+
     public void setUsers(Collection<UserData> users) {
         this.users = users;
     }
 
-}
+
+    }
+
