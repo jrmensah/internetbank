@@ -1,40 +1,39 @@
 package me.jrmensah.internetbank.entities;
 
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-
+import javax.management.relation.Role;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 @Entity
+@Table(name="USER_DATA")
 public class UserData {
-    public UserData() {
-        this.roles= new HashSet<>();
-    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @Email
-    @NotEmpty
+    @Column(name="email", nullable = false)
     private String email;
 
+    @Column(name="password")
     private String password;
 
+    @Column(name="first_name")
     private String firstName;
 
+    @Column(name="last_name")
     private String lastName;
 
+    @Column(name="enabled")
     private boolean enabled;
 
+    @Column(name="username")
     private String username;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
-    private Set<UserRole> roles;
+    private Collection<Role> roles;
 
     public long getId() {
         return id;
@@ -92,15 +91,12 @@ public class UserData {
         this.username = username;
     }
 
-    public Set<UserRole> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+}
 
-    public void addRole(UserRole theRole){
-        roles.add ( theRole );
-}
-}
