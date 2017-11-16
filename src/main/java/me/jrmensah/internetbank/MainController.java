@@ -19,4 +19,24 @@ public class MainController {
     public String register(){
             return "register";
     }
+
+    @RequestMapping("/deposit")
+    public String deposit(){
+        return "deposit";
+    }
+
+    @RequestMapping("/withdrawal")
+    public String withdrawl(){
+        return "withdrawal";
+    }
+
+    @RequestMapping("/transaction")
+    public String transaction(){
+        return "transaction";
+    }
+
+    @RequestMapping("/balance")
+    public String balance(){
+        return "balance";
+    }
 }
