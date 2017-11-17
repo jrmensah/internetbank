@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.management.relation.Role;
+import java.util.Arrays;
 
 @Component
 public class DataLoader implements CommandLineRunner{
@@ -20,12 +21,12 @@ public class DataLoader implements CommandLineRunner{
 
     @Override
     public void run(String...strings) throws Exception{
-        System.out.println("Loading...");
+        System.out.println("Loading data...");
 
         roleRepository.save(new UserRole("USER"));
         roleRepository.save(new UserRole("ADMIN"));
 
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        Role userRole = roleRepository.findByRole("USER");
+        UserRole adminRole = roleRepository.findByRole("ADMIN");
+        UserRole userRole = roleRepository.findByRole("USER");
     }
 }

@@ -1,6 +1,5 @@
 package me.jrmensah.internetbank.controllers;
 
-
 import me.jrmensah.internetbank.entities.UserData;
 import me.jrmensah.internetbank.entities.UserService;
 import me.jrmensah.internetbank.repositories.UserRepository;
@@ -23,6 +22,33 @@ public class MainController {
     UserRepository userRepository;
 
 
+    @RequestMapping("/")
+    public String showMainPage(Principal p){
+        return "index";
+    }
+
+    @RequestMapping("/login")
+        public String login()
+        {
+            return "login";
+        }
+    @RequestMapping("/secure")
+    public String secure()
+    {
+        return "secure";
+    }
+    @RequestMapping("/admin")
+        public String admin()
+    {
+            return "admin";
+    }
+    @RequestMapping("/base")
+        public String showPageOne(Model model){
+            model.addAttribute("title", "First Page");
+            model.addAttribute("pagenumber" ,"1");
+            return "base";
+    }
+
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model){
         model.addAttribute("user", new UserData());
@@ -43,49 +69,6 @@ public class MainController {
             return "index";
         }
     }
-    @RequestMapping("/")
-    public String showMainPage(Principal p){
-        return "index";
-    }
-
-    @RequestMapping("/login")
-        public String login(){
-            return "login";
-        }
-    @RequestMapping("/secure")
-    public String secure(){
-        return "secure";
-    }
-    @RequestMapping("/admin")
-        public String admin(){
-            return "admin";
-    }
-    @RequestMapping("/base")
-        public String showPageOne(Model model){
-            model.addAttribute("title", "First Page");
-            model.addAttribute("pagenumber" ,"1");
-            return "base";
-    }
-    @GetMapping("/register")
-        public String showPageTwo(Model model){
-        model.addAttribute("user", new UserData());
-        model.addAttribute("pagenumber", "2");
-            return "registration";
-    }
-    @PostMapping("/register")
-        public String processRegistrationPage(@Valid @ModelAttribute("user") UserData user,
-                                          BindingResult result, Model model){
-        model.addAttribute("user", user);
-
-        if(result.hasErrors()){
-            return "registration";
-        }else{
-            userService.saveUserData(user);
-            model.addAttribute("message", "User Account Successfully created");
-        }
-        return "index";
-    }
-
 
     @RequestMapping("/deposit")
         public String showPageThree(Model model){
@@ -137,14 +120,17 @@ public class MainController {
     }
 
 
-
     @RequestMapping("/transaction")
-    public String transaction(){
-        return "transaction";
+    public String showPageFive(Model model){
+            model.addAttribute("Transaction", "Fifth Page");
+            model.addAttribute("pagenumber", "5");
+            return "transaction";
     }
 
     @RequestMapping("/balance")
-    public String balance(){
+    public String showPageSix(Model model){
+        model.addAttribute("Balance", "Sixth Page");
+        model.addAttribute("pagenumber", "6");
         return "balance";
     }
 }

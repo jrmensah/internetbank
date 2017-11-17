@@ -11,25 +11,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
+
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+//Transactional annotation allows everything to go through, Service is NOT an Entity
 @Transactional
 @Service
+
+//These are details in database that creates access and takes object from database to check if
+//username and password are correct, data passes through if correct otherwise returns to login
+
+//A user object implements Username authorizes just username, not other details like phone number or email
+//implementing certain methods that must be valid for user
 public class SSUserDetailsService implements UserDetailsService {
 
+    //Information can be passed back
     private UserRepository userRepository;
 
-    public SSUserDetailsService(UserRepository userRepository) {
+    public SSUserDetailsService(UserRepository userRepository)
+    {
         this.userRepository = userRepository;
     }
 
+
     @Override
+    //When creating UserDetailsService file, this method must be included in class
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
+        //String username returns to userData
         try {
             UserData user = userRepository.findByUsername(username);
             if (user == null)
@@ -43,17 +56,19 @@ public class SSUserDetailsService implements UserDetailsService {
                 getAuthorities(user));
 
     } catch(Exception e) {
-        throw new UsernameNotFoundException("User not found");
-    }
 
+    }
+    return null;
 }
 
-    private Set<GrantedAuthority> getAuthorities(UserData userData){
+    private Set<GrantedAuthority> getAuthorities(UserData user){
     Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-    for (UserRole role : userData.getRoles()){
+    for (UserRole role : user.getRoles())
+    {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());
         authorities.add(grantedAuthority);
+        System.out.println("Granted Authority"+grantedAuthority.toString());
     }
     return authorities;
 

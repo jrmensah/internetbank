@@ -11,16 +11,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+//@Configuration and @EnableWebSecurity indicates the compiler that the file is a configuration file and
+//Spring Security is enabled
 
+//This file extends WebSecurityConfigurerAdapter, which has all methods need to include security
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private SSUserDetailsService userDetailsService;
+    SSUserDetailsService userDetailsService;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception{
@@ -32,10 +35,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", ".h2-console/**").permitAll()
+                .antMatchers("/css/**","/js/**","/img/**",".h2-console/**","/register").permitAll()
+                .antMatchers("/").access("hasAuthority('USER') or hasAuthority('ADMIN')")
+                .antMatchers("/admin", "admin").access("hasAuthority('ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
+                .and()
+                //Login successfully
+                .formLogin().defaultSuccessUrl("/login",true)
+                //Logout successfully
                 .and()
                 .logout()
                 .logoutRequestMatcher( new AntPathRequestMatcher("/logout"))
@@ -49,13 +58,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     }
     @Override
+    //Determines whether details has passed and sees whether information is passable
     protected void configure(AuthenticationManagerBuilder auth)
         throws Exception{
-        auth
-                .userDetailsService(userDetailsServiceBean());
-        auth.inMemoryAuthentication().
-                withUser("dave").password("begreat").authorities("ADMIN")
+        auth.inMemoryAuthentication().withUser("dave").password("begreat").authorities("ADMIN")
                 .and().withUser("user").password("password").roles("USER");
+                auth.userDetailsService(userDetailsServiceBean());
+
+
+
 
     }
 }

@@ -10,6 +10,10 @@ import java.util.HashSet;
 @Entity
 @Table(name="USER_DATA")
 public class UserData {
+    public UserData() {
+        this.roles= new HashSet<UserRole>();
+
+    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,11 +28,6 @@ public class UserData {
     @Column(name="first_name")
     private String firstName;
 
-    public UserData() {
-        this.roles= new HashSet<UserRole>();
-
-    }
-
     @Column(name="last_name")
     private String lastName;
 
@@ -38,63 +37,79 @@ public class UserData {
     @Column(name="username")
     private String username;
 
+    //The relationship many users can have, which can be one, more than one or zero roles.
     @ManyToMany(fetch = FetchType.EAGER)
+    //Join Column will save from the table for relationship to role in database
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<UserRole> roles;
 
-    public long getId() {
+    public long getId()
+    {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(long id)
+    {
         this.id = id;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public String getPassword() {
+    public String getPassword()
+    {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password)
+    {
         this.password = password;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(boolean enabled)
+    {
         this.enabled = enabled;
     }
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username)
+    {
         this.username = username;
     }
 
@@ -102,11 +117,16 @@ public class UserData {
         return roles;
     }
 
-    public void setRoles(Collection<UserRole> roles) {
+    public void setRoles(Collection<UserRole> roles)
+    {
         this.roles = roles;
     }
 
-    public void addRoles(UserRole user) { roles.add(user);
+    public void addRole(UserRole role)
+    {
+        roles.add(role);
     }
+
+
 }
 

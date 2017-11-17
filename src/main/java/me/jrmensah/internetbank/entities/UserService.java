@@ -13,11 +13,13 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     RoleRepository roleRepository;
 
     @Autowired
     public UserService(UserRepository userRepository)
+
     {
      this.userRepository = userRepository;
     }
@@ -26,23 +28,26 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
     public Long countByEmail(String email)
+
     {
         return userRepository.countByEmail(email);
     }
     public UserData findByUsername(String username)
+
     {
         return userRepository.findByUsername(username);
     }
     public void saveUserData(UserData user){
-        user.addRoles(roleRepository.findByRole("USER"));
+        user.addRole(roleRepository.findByRole("USER"));
         user.setEnabled(true);
         userRepository.save(user);
     }
     public void saveAdmin(UserData user){
-        user.setRoles(roleRepository.findByRole("ADMIN")));
+        user.addRole(roleRepository.findByRole("ADMIN"));
         user.setEnabled(true);
         userRepository.save(user);
     }
+
 
     public void saveUserData(User user) {
     }
