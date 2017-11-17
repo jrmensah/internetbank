@@ -33,14 +33,14 @@ public class MainController {
         {
             return "login";
         }
-    @RequestMapping("/register")
+    @RequestMapping("/add")
     public String showPageTwo(Model model) {
         model.addAttribute("Registration Form", "Second Page");
         model.addAttribute("pagenumber", "2");
         return "registration";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/process")
     public String showRegistrationPage(Model model)
     {
         model.addAttribute("user", new UserData());
@@ -57,11 +57,11 @@ public class MainController {
             return "redirect:/";
         }
 
-    @GetMapping("/deposit")
+    @GetMapping("/add")
         public String showPageThree(Model model){
         model.addAttribute("Deposit Form","Third Page");
         model.addAttribute("pagenumber", "3");
-        return "deposit";
+        return "depositform";
     }
     @PostMapping("/deposit")
     public String processDepositPage(@Valid @ModelAttribute("user") UserData user,
@@ -79,7 +79,7 @@ public class MainController {
         public String showPageFour(Model model) {
         model.addAttribute("Withdrawal", "Fourth Page");
         model.addAttribute("pagenumber", "4");
-        return "withdrawal";
+        return "withdrawalform";
     }
         @PostMapping("/withdrawal")
         public String processWithdrawalPage(@Valid @ModelAttribute("user") UserData user,
@@ -91,7 +91,7 @@ public class MainController {
             userRepository.save(user);
             return "redirect:/";
         }
-    @RequestMapping("/transaction")
+    @GetMapping("/transaction")
     public String showPageFive(Model model){
         model.addAttribute("Transaction", "Fifth Page");
         model.addAttribute("pagenumber", "5");
@@ -106,19 +106,19 @@ public class MainController {
     }
 
     @RequestMapping("/detail/{id}")
-        public String showAccount(@PathVariable("id") long id, Model model) {
+        public String showItem(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userRepository.findOne(id));
         return "show";
     }
 
     @RequestMapping("/update/{id}")
-        public String updateAccount(@PathVariable("id") long id, Model model) {
+        public String updateItem(@PathVariable("id") long id, Model model) {
         model.addAttribute("user", userRepository.findOne(id));
         return "withdrawalform";
     }
 
     @RequestMapping("/delete/{id}")
-        public String delAccount(@PathVariable("id") long id){
+        public String delItem(@PathVariable("id") long id){
         userRepository.delete(id);
         return "redirect:/";
     }
