@@ -8,6 +8,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Entity
 public class Account {
 
     @Id
@@ -37,12 +38,9 @@ public class Account {
     @DateTimeFormat(pattern="MMM/dd/YYYY")
     private String date;
 
-    // ManyToMany relationships for transactions made and account details
-    @ManyToMany(mappedBy = "transactions",fetch= FetchType.LAZY)
-    private Set<Account> accounts;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(joinColumns = @JoinColumn(name="account_id"),inverseJoinColumns = @JoinColumn(name="transaction_id"))
+ // Many to Many relationship
+    @ManyToMany(mappedBy = "accounts")
     private Set<Transaction> transactions;
 
     public long getId() {
@@ -93,13 +91,13 @@ public class Account {
         this.date = date;
     }
 
-    public Set<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
-    }
+//    public Set<Account> getAccounts() {
+//        return accounts;
+//    }
+//
+//    public void setAccounts(Set<Account> accounts) {
+//        this.accounts = accounts;
+//    }
 
     public Set<Transaction> getTransactions() {
         return transactions;

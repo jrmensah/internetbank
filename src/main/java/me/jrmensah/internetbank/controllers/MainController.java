@@ -13,17 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.security.Principal;
 
+
 @Controller
 public class MainController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     UserRepository userRepository;
+    UserService userService;
 
 
     @RequestMapping("/")
-    public String showMainPage(Principal p){
+    public String showMainPage(Principal p)
+    {
         return "index";
     }
 
@@ -32,99 +33,69 @@ public class MainController {
         {
             return "login";
         }
-    @RequestMapping("/secure")
-    public String secure()
-    {
-        return "secure";
-    }
-    @RequestMapping("/admin")
-        public String admin()
-    {
-            return "admin";
-    }
-    @RequestMapping("/base")
-        public String showPageOne(Model model){
-            model.addAttribute("title", "First Page");
-            model.addAttribute("pagenumber" ,"1");
-            return "base";
-    }
-
-    @RequestMapping(value="/register", method = RequestMethod.GET)
-    public String showRegistrationPage(Model model){
-        model.addAttribute("user", new UserData());
+    @RequestMapping("/register")
+    public String showPageTwo(Model model) {
+        model.addAttribute("Registration Form", "Second Page");
+        model.addAttribute("pagenumber", "2");
         return "registration";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String processRegistrationPage(@Valid @ModelAttribute("user") User user,
-                                          BindingResult result,
-                                          Model model){
-        model.addAttribute("user", user);
-        if (result.hasErrors())
-        {
-            return "registration";
-        }else{
-            userService.saveUserData(user);
-            model.addAttribute("message", "User Account Successfully Created");
-            return "index";
-        }
+    @GetMapping("/register")
+    public String showRegistrationPage(Model model)
+    {
+        model.addAttribute("user", new UserData());
+        return "registration";
     }
+        @PostMapping("/register")
+        public String processRegistrationPage(@Valid @ModelAttribute("user") UserData user,
+                BindingResult result, Model model)
+        {
+            if(result.hasErrors()){
+                return "registration";
+            }
+            userRepository.save(user);
+            return "redirect:/";
+        }
 
-    @RequestMapping("/deposit")
+    @GetMapping("/deposit")
         public String showPageThree(Model model){
         model.addAttribute("Deposit Form","Third Page");
         model.addAttribute("pagenumber", "3");
         return "deposit";
     }
-    @RequestMapping("/detail/{id}")
-        public String showDeposit(@PathVariable("deposit") long id, Model model) {
-        model.addAttribute("user", userRepository.findOne(id));
-        return "deposit";
-    }
-
-    @RequestMapping("/update/{id}")
-        public String updateDeposit(@PathVariable("deposit") long id, Model model) {
-        model.addAttribute("user", userRepository.findOne(id));
-        return "depositform";
-    }
-
-    @RequestMapping("/delete/{id}")
-        public String delDeposit(@PathVariable("deposit") long id){
-        userRepository.delete(id);
+    @PostMapping("/deposit")
+    public String processDepositPage(@Valid @ModelAttribute("user") UserData user,
+                                          BindingResult result, Model model)
+    {
+        if(result.hasErrors()){
+            return "depositform";
+        }
+        userRepository.save(user);
         return "redirect:/";
     }
 
 
-    @RequestMapping("/withdrawal")
-        public String showPageFour(Model model){
+    @GetMapping("/withdrawal")
+        public String showPageFour(Model model) {
         model.addAttribute("Withdrawal", "Fourth Page");
         model.addAttribute("pagenumber", "4");
         return "withdrawal";
     }
-    @RequestMapping("/detail/{id}")
-        public String showWithdrawal(@PathVariable("withdrawal") long id, Model model) {
-        model.addAttribute("user", userRepository.findOne(id));
-        return "withdrawal";
-    }
-
-    @RequestMapping("/update/{id}")
-        public String updateWithdrawal(@PathVariable("withdrawal") long id, Model model) {
-        model.addAttribute("user", userRepository.findOne(id));
-        return "withdrawalform";
-    }
-
-    @RequestMapping("/delete/{id}")
-        public String delWithdrawal(@PathVariable("withdrawal") long id){
-        userRepository.delete(id);
-        return "redirect:/";
-    }
-
-
+        @PostMapping("/withdrawal")
+        public String processWithdrawalPage(@Valid @ModelAttribute("user") UserData user,
+                BindingResult result, Model model)
+        {
+            if(result.hasErrors()){
+                return "withdrawalform";
+            }
+            userRepository.save(user);
+            return "redirect:/";
+        }
     @RequestMapping("/transaction")
     public String showPageFive(Model model){
-            model.addAttribute("Transaction", "Fifth Page");
-            model.addAttribute("pagenumber", "5");
-            return "transaction";
+        model.addAttribute("Transaction", "Fifth Page");
+        model.addAttribute("pagenumber", "5");
+        return "transaction";
     }
 
     @RequestMapping("/balance")
@@ -133,4 +104,25 @@ public class MainController {
         model.addAttribute("pagenumber", "6");
         return "balance";
     }
+
+    @RequestMapping("/detail/{id}")
+        public String showAccount(@PathVariable("id") long id, Model model) {
+        model.addAttribute("user", userRepository.findOne(id));
+        return "show";
+    }
+
+    @RequestMapping("/update/{id}")
+        public String updateAccount(@PathVariable("id") long id, Model model) {
+        model.addAttribute("user", userRepository.findOne(id));
+        return "withdrawalform";
+    }
+
+    @RequestMapping("/delete/{id}")
+        public String delAccount(@PathVariable("id") long id){
+        userRepository.delete(id);
+        return "redirect:/";
+    }
+
+
+
 }

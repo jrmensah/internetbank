@@ -35,11 +35,10 @@ public class Transaction {
 
     @NotNull
     @NotEmpty
-    @DateTimeFormat(pattern = "MM/dd/YYYY")
+    @DateTimeFormat(pattern = "MMM/dd/YYYY")
     private String date;
 
-    // a many to many relation ship
-    @ManyToMany(mappedBy = "transactions",fetch=FetchType.LAZY)
+    @ManyToMany()
     private Set<Account> accounts;
 
     public Transaction() {
