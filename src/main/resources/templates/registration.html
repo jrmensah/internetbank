@@ -6,7 +6,7 @@
 </head>
 <body>
     <div th:replace="base::navlinks"></div>
-    <h4> New UserRegistration Page</h4>
+    <h4> New Registration Page</h4>
     <form autocomplete="off" action="#" th:action="@{/register}"
           th:object="${user}" method="post">
         First Name: <mark><strong>
@@ -39,6 +39,12 @@
     </strong></mark>
         <input type="text" id="password" placeholder="Password"
                th:field="*{password}" /><br />
+        Account #: <mark><strong>
+        <span th:if="${#fields.hasErrors('accountNumber')}"
+              th:errors="*{accountNumber}">Account # Error</span>
+    </strong></mark>
+        <input type="number" id="accountNumber" placeholder="Account #"
+               th:field="*{accountNumber}" /><br />
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 
