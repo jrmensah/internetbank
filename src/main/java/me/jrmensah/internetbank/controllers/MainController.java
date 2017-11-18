@@ -20,28 +20,20 @@ public class MainController {
     UserRepository userRepository;
 
 
-
     @RequestMapping("/")
     public String showMainPage(Principal p)
     {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String showLoginPage(Model model)
-    {
-        model.addAttribute("user", new UserData());
+    @RequestMapping("/login")
+    public String login(){
         return "login";
     }
-    @PostMapping("/login")
-    public String processLoginPage(@Valid @ModelAttribute("user") UserData user,
-                                          BindingResult result, Model model)
-    {
-        if(result.hasErrors()){
-            return "login";
-        }
-        userRepository.save(user);
-        return "redirect:/";
+
+    @RequestMapping("/admin")
+    public String admin(){
+        return "admin";
     }
 
     @RequestMapping("/add")

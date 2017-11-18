@@ -10,6 +10,9 @@ import java.util.Arrays;
 
 @Service
 public class UserService {
+    public UserService() {
+    }
+
 
     @Autowired
     UserRepository userRepository;
