@@ -1,32 +1,28 @@
 <!DOCTYPE>
-<html xmlns:th="www.thymeleaf.org" xmlns:th="wwww.">
+<html xmlns:th="www.thymeleaf.org">
 
     <meta charset="UTF-8" />
     <title>Login Form</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
-    <link rel="stylesheet" href="/css/loginstyle.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"/>
 
 </head>
 <body>
 
-    <h2>Login Page</h2>
-    <div th:if="${param.error}">
-        Invalid username and password
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
+    <div class="login">
+        <h1>Login Page</h1>
+
     <form th:action="@{/login}" method="post">
-        <div><label> User Name:<input type="text" name="username" />
+        <div th:if="${param.error}" class="has-error"></div>
+        Invalid username and password
+    <div th:if="${param.logout}"></div>
+    You have been logged out.
+        <div><label> User Name:<input type="text" name="username" placeholder="Username" required="required" />
         </label></div>
-        <div><label> Password:<input type="text" name="password" />
+        <div><label> Password:<input type="password" name="password" placeholder="Password" required="required" />
         </label></div>
         <div><input type="submit" value="Sign In"/></div>
     </form>
-    <div th:replace="base::footer"></div>
+    </div>
+    <!--End of Login-->
+        <script  src="js/index.js"/>
 </body>
 </html>

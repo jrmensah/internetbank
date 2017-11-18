@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="index::headstuff">
     <meta charset="UTF-8"/>
-    <title>Admin Login</title>
+    <title th:text="${title}"></title>
 </head>
 <body>
+<div th:replace="fragments/mainpage::navclass">This page has a navbar</div>
 
-<h2>Admin Login Page</h2>
-
-
-<div th:replace="base::footer"></div>
+<div th:replace="fragments/mainpage :: everydiv">This will display with every div's information</div>
+<div sec:authorize="hasAuthority('ADMIN')">You see this because you can see the admin page. Good job! </div>
 </body>
 </html>

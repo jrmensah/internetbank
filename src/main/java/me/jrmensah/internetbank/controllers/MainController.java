@@ -27,11 +27,23 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/login")
-        public String login()
-        {
+    @GetMapping("/login")
+    public String showLoginPage(Model model)
+    {
+        model.addAttribute("user", new UserData());
+        return "login";
+    }
+    @PostMapping("/login")
+    public String processLoginPage(@Valid @ModelAttribute("user") UserData user,
+                                          BindingResult result, Model model)
+    {
+        if(result.hasErrors()){
             return "login";
         }
+        userRepository.save(user);
+        return "redirect:/";
+    }
+
     @RequestMapping("/add")
     public String showPageTwo(Model model) {
         model.addAttribute("Registration Form", "Second Page");
