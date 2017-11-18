@@ -2,11 +2,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Transaction History Page</title>
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"/>
 </head>
 <body>
-<div th:replace="base::navlinks"></div>
-<h2>Transaction History Page</h2>
-<div th:replace="base::footer"></div>
+<div class="container">
+<table>
+    <tr>
+        <th>Name</th>
+        <br/>
+        <th>ID #</th>
+        <br/>
+        <th>Account #</th>
+        <br />
+        <th>Deposit or Withdrawal</th>
+        <br/>
+        <th>Amount</th>
+        <br/>
+        <th>Reason</th>
+        <br />
+
+
+    </tr>
+    <tr th:each="account : ${account}">
+        <td th:text="${account.firstName}"></td>
+        <td th:text="${account.lastName}"></td>
+        <td th:text="${account.id}"></td>
+        <td th:text="${account.accountNumber}"></td>
+        <td th:text="${account.action}"></td>
+        <td th:text="${account.amount}"></td>
+        <td th:text="${account.reason}"></td>
+
+        <td>Actions
+            <a th:href="@{/update/{id} (id=${account.id})}">Update</a>-
+            <a th:href="@{/detail/{id} (id=${account.id})}">Details</a>-
+            <a th:href="@{/delete/{id} (id=${account.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+</div>
 </body>
 </html>

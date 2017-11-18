@@ -1,7 +1,6 @@
 package me.jrmensah.internetbank.controllers;
 
 import me.jrmensah.internetbank.entities.UserData;
-import me.jrmensah.internetbank.entities.UserService;
 import me.jrmensah.internetbank.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +18,7 @@ public class MainController {
 
     @Autowired
     UserRepository userRepository;
-    UserService userService;
+
 
 
     @RequestMapping("/")
