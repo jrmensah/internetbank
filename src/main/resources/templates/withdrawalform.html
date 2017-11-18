@@ -7,6 +7,34 @@
 <body>
 <div th:replace="base::navlinks"></div>
 <h2>Withdrawal Form</h2>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <form action="#" th:action="@{/process}"
+              th:object="${account}"
+              method="post">
+            <input type="hidden" th:field="*{id}" />
+            ID#:<input type="number" th:field="*{id}" />
+            <span th:if="${#fields.hasErrors('id')}"
+                  th:errors="*{id}"></span>
+            <br/>
+            Account#:<input type="number" th:field="*{accountNumber}" />
+            <span th:if="${#fields.hasErrors('accountNumber')}"
+                  th:errors="*{accountNumber}"></span>
+            <br/>
+            Amount to Withdrawal:<input type="text" th:field="*{amount}" />
+            <span th:if="${#fields.hasErrors('amount')}"
+                  th:errors="*{amount}"></span>
+            <br/>
+            Reason:<input type="text" th:field="*{reason}" />
+            <span th:if="${#fields.hasErrors('reason')}"
+                  th:errors="*{reason}"></span>
+            <br/>
+
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+</div>
 <div th:replace="base::footer"></div>
+
 </body>
 </html>
