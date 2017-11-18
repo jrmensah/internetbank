@@ -15,6 +15,24 @@
 </head>
 
 <body>
-
+<table>
+    <tr>
+        <th>Name</th>
+        <br/>
+        <th>Account #</th>
+        <br />
+        <th>Date of Account created</th>
+        <br/>
+        <th>Balance</th>
+        <br/>
+    </tr>
+    <tr th:each="account : ${account}">
+        <td th:text="${account.firstName}"></td>
+        <td th:text="${account.lastName}"></td>
+        <td th:text="${account.accountNumber}"></td>
+        <td th:text="${account.date}"></td>
+        <td th:text="${account.amount}"></td>
+    </tr>
+</table>
 </body>
 </html>
