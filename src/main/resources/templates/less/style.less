@@ -1,0 +1,404 @@
+@columns: 12;
+@column-width: 60;
+@gutter-width: 30;
+@total-width: 100%;
+
+@medium: ~"screen and (min-width: 38em)";
+
+a { 
+  color: @white;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+body {
+  margin:0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+header {
+  height: 60px;
+  margin-bottom: 6em;
+  text-align: center;
+  background: rgba(0,0,0,0.125);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.1),inset 0 1px 0 #000;
+  
+  @media @medium{
+    height: auto;
+    padding: 2em;
+  }
+} 
+
+h1.logo {
+  display: inline;
+  float: left;
+  width: 70%;
+  padding: 10px 5%;
+  
+  @media @medium {
+    width: 100%;
+  }
+}
+
+.menu-button {
+	display: inline;
+	float: left;
+	width: 15%;
+	height: 60px;
+	padding-top: 1.4em;
+	box-shadow: 1px 0 0 rgba(255,255,255,0.1),inset -1px 0 0 #000;
+
+	@media @medium {
+		display:none;
+	}
+	
+	&.active {
+		background: rgba(255,255,255,0.08);
+
+		&:after {
+			display: block;
+			content: '';
+			position: fixed;
+			top: 60px;
+			background: rgba(0,0,0,.25);
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+			left: 0;
+		}
+	}
+
+
+}
+
+.login-button {
+	&:extend(.menu-button all);
+	box-shadow: -1px 0 0 rgba(255,255,255,0.1),inset 1px 0 0 #000;
+}
+
+nav[role=navigation].push {
+  ul.global-nav, ul.primary-nav {
+    transform: translate(-600px, 0);  
+  }
+}
+
+nav[role=navigation] {
+	transition: all 0.3s ease-out;
+	width: 100%;
+	padding: 0;
+  clear: both;
+  background: rgba(255,255,255,0.07);
+  box-shadow: inset 1px 0 0 rgba(0,0,0,.7);
+	position: relative;
+  
+  @media @medium{
+    background: none;
+    box-shadow: none;
+    position: static;
+  }
+  
+	a:hover {
+		background:rgba(255,255,255,.1);
+    
+    @media @medium {
+      background: none;
+    }
+	}
+  
+  #login {
+    display:none;
+    padding: 2em;
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.7);
+    transition: all 0.3s ease-out;
+    backface-visibility: hidden;
+    
+    @media @medium {
+      position: static;
+      float: right;
+      width: auto;
+      right: 0;
+      top: 0;
+      padding: 0;
+      box-shadow: none;
+      
+      &>a {
+        font-size: .8em;
+      }
+    }
+    &.active {
+	  	display: block;
+    }
+  
+    .top-level-link {
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+      
+      @media @medium {
+        text-transform: none;
+        font-weight: normal;
+        text-align: left
+      }
+    }
+  
+    .button-small {
+      width: 150px;
+    }
+    
+    .dropdown-menu {
+      display: block;
+      
+      @media @medium {
+        display: none;
+      }
+    }
+  }
+
+  #login.push {
+    transform: translate(600px, 0);
+  }
+   
+  ul.global-nav {
+    position: fixed;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    width: 16em;
+    transition: all 0.3s ease-out;
+    backface-visibility: hidden;
+    
+    @media @medium{
+      position: static;
+      float: left;
+      top: 0;
+      left: 0;
+      width: auto;
+      background: none;
+      
+      &>li {
+        width: auto;
+      }
+      li>a {
+        font-size: .8em;
+      }
+    }
+        
+    li>a {
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      
+      @media @medium {
+        border: none;
+      }
+    }
+  }
+  
+  ul.primary-nav {
+    position: fixed;
+    display: block;
+    left: 0;
+    top: 128px;
+    bottom: 0;
+    width: 16em;
+    transition: all 0.3s ease-out;
+    backface-visibility: hidden;
+    background: rgba(255,255,255,0.07);
+    
+    @media @medium {
+      position: absolute;
+      width: 100%;
+      top: 150px;
+      bottom: auto;
+      z-index: 10;
+      text-align: justify;
+		  font-size: 0.1px;
+      background: none;
+      
+      li>a{
+        font-size: 1.5em;
+        text-transform: uppercase;
+        letter-spacing: 0.125em;
+      }
+    }
+    
+    li {
+      width:100%;
+      
+      @media @medium {
+        width:33.333%;
+      }
+    }
+  }
+
+	li {
+		font-size: 16px;
+    
+		@media @medium {
+			display: inline-block;
+			text-align: center;
+		}
+	}
+  
+	.break {
+    width: 100%;
+    height: 0;
+	}
+  
+	.top-level-list-item > a {
+		display: block;
+		padding: 0.8em 1em;
+		border-bottom: 1px dotted @black;
+
+		@media @medium {
+			border: 0;
+		}
+	}
+}
+
+.js nav[role=navigation], .js #login {
+	width: 16em;
+  height: 100%;
+  top: 0;
+  left: -16em;
+
+	@media @medium {    
+    max-width: none;
+    width: auto;
+    left: 0;
+    width: 90%;
+  max-width: 1180px;
+  margin: 0 auto;
+	}
+}
+
+.js #login {
+ 	display: none;
+	position: fixed;
+	top: 0;
+	left: auto;
+	right: 0em;
+	width: 16em;
+	height: 100%;
+	overflow: scroll;
+  
+  @media @medium {
+    position: relative;
+  }
+}
+
+.dropdown-menu {
+  display: none;
+
+  @media @medium {
+	opacity: 0; 
+	width: 100%;
+	padding: 2em;
+	background: @white;
+  color: @black;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	z-index: 1000;
+  }
+} 
+
+.primary-nav .dropdown-menu {
+  top: 75px;
+}
+
+
+.dropdown-open > .dropdown-menu, .dropdown-open > .login-dropdown {
+	display: block!important;
+	opacity: 1;
+}
+
+.dropdown-open .arrow {
+	display: block;
+	//display:none;
+	top: auto;
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	border: solid transparent;
+	border-bottom-color: #fff;
+	border-width: 20px;
+	top: -40px;
+  z-index: 10;
+  margin-left: -20px;
+} 
+
+.about-us .arrow {
+  left:10%;
+  top: -30px;
+}
+
+.contact-us .arrow {
+  left:15%;
+  top: -30px;
+}
+
+.login .arrow {
+  left:90%;
+  top: -30px;
+}
+
+.personal .arrow {
+  left:16%;
+}
+
+.business .arrow {
+  left:50%;
+}
+
+.real-estate .arrow {
+  left: 83%;
+}
+
+
+
+.wrap {
+  position: relative;
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+  background-repeat: repeat;
+  background-image: url(https://dl.dropboxusercontent.com/u/3988712/cb-bg.jpg)
+}
+
+.wrap.menu-active {
+  left: 16em;
+  overflow: visible;
+}
+
+.wrap.login-active {
+  right: 16em;
+  overflow: visible;
+}
+
+@media @medium {
+  .wrap.menu-active,.wrap.login-active {
+    left: 0;
+    right: 0;
+  }
+}
+
+section[role=banner]{
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  
+  img {
+    position: relative;
+    max-width: 150%;
+    left: -25%;
+  }
+}

@@ -43,6 +43,18 @@ public class Account {
     @ManyToMany(mappedBy = "accounts")
     private Set<Transaction> transactions;
 
+    public Account() {
+    }
+
+    public Account(String firstName, String lastName, int accountNumber, double amount, String date, Set<Transaction> transactions) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.date = date;
+        this.transactions = transactions;
+    }
+
     public long getId() {
         return id;
     }
@@ -91,13 +103,7 @@ public class Account {
         this.date = date;
     }
 
-//    public Set<Account> getAccounts() {
-//        return accounts;
-//    }
-//
-//    public void setAccounts(Set<Account> accounts) {
-//        this.accounts = accounts;
-//    }
+
 
     public Set<Transaction> getTransactions() {
         return transactions;

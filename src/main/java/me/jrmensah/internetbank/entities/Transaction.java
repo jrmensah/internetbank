@@ -41,6 +41,7 @@ public class Transaction {
     @ManyToMany()
     private Set<Account> accounts;
 
+
     public Transaction() {
         accounts = new HashSet<Account>();
     }

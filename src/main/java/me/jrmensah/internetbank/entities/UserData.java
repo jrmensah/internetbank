@@ -10,6 +10,7 @@ import java.util.HashSet;
 @Entity
 @Table(name="USER_DATA")
 public class UserData {
+
     public UserData() {
         this.roles= new HashSet<UserRole>();
 
@@ -42,6 +43,8 @@ public class UserData {
     //Join Column will save from the table for relationship to role in database
     @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
     private Collection<UserRole> roles;
+
+
 
     public long getId()
     {
